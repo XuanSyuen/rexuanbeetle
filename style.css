@@ -1,5 +1,4 @@
-
- .banner-image{ padding-top: 75px;    
+.banner-image{ padding-top: 75px;    
               padding-bottom: 50px; 
               text-align: center;     
               color: #f8f8f8; 
@@ -15,37 +14,55 @@
     margin-bottom: 12%; 
     background-color: rgba(0, 0, 0, 0.7); 
     max-width: 660px;
-    overflow: hidden;
-    
+    overflow: hidden;  
 }
 
 .thumbnail img{
     max-height: 150px; 
 }
+
 main {
     min-height: 100vh;
 }
 
-footer{
+footer {
     padding: 10px 0; 
     background-color: #101010; 
     color:#9d9d9d; 
     bottom: 0; 
-    width: 100%; }
-.row_style{margin-top: 70px;
+    width: 100%; 
 }
- h2{font-weight: bolder; 
- }
- .jumbotron_style{margin-top: 70px;
- }
- .table_style{margin-top: 70px;
- }
-  h4{font-weight: bolder;
-  }
- .container_style{margin-top: 80px;
- }
 
- .add-to-cart {
+.row_style {
+    margin-top: 70px;
+}
+
+h2 {
+    font-weight: bolder; 
+}
+
+.jumbotron_style {
+    margin-top: 70px;
+}
+ 
+.table_style {
+    margin-top: 70px;
+}
+
+h4 {
+    font-weight: bolder;
+}
+
+.container_style {
+    margin-top: 80px;
+    height: 100%;
+}
+
+.thumbnail {
+    height: 320px;
+}
+
+.add-to-cart {
     margin: 0;
     background-color: #337ab7;
     color: #ffffff;
@@ -56,7 +73,9 @@ footer{
     margin-bottom: 0;
     font-size: 14px;
     font-weight: 400;
- }
- .padding-20 {
-     padding: 20px;
- }
+}
+
+.padding-20 {
+    padding: 20px;
+}
+         

@@ -1,61 +1,62 @@
-.banner-image{ padding-top: 75px;    
-              padding-bottom: 50px; 
-              text-align: center;     
-              color: #f8f8f8; 
-              background: url(img/intro_bg.jpg) no-repeat center ; 
-              background-size: cover;
+.banner-image { 
+    padding-top: 75px;    
+    padding-bottom: 50px; 
+    text-align: center;     
+    color: #f8f8f8; 
+    background: url(img/intro_bg.jpg) no-repeat center ; 
+    background-size: cover;
 }
 
 .banner-content{
-    position:relative; 
-    padding-top: 6%; 
-    padding-bottom: 6%; 
-    margin-top: 12%; 
-    margin-bottom: 12%; 
-    background-color: rgba(0, 0, 0, 0.7); 
-    max-width: 660px;
-    overflow: hidden;  
+position:relative; 
+padding-top: 6%; 
+padding-bottom: 6%; 
+margin-top: 12%; 
+margin-bottom: 12%; 
+background-color: rgba(0, 0, 0, 0.7); 
+max-width: 660px;
+overflow: hidden;  
 }
 
 .thumbnail img{
-    max-height: 150px; 
+max-height: 150px; 
 }
 
 main {
-    min-height: 100vh;
+min-height: 100vh;
 }
 
 footer {
-    padding: 10px 0; 
-    background-color: #101010; 
-    color:#9d9d9d; 
-    bottom: 0; 
-    width: 100%; 
+padding: 10px 0; 
+background-color: #101010; 
+color:#9d9d9d; 
+bottom: 0; 
+width: 100%; 
 }
 
 .row_style {
-    margin-top: 70px;
+margin-top: 70px;
 }
 
 h2 {
-    font-weight: bolder; 
+font-weight: bolder; 
 }
 
 .jumbotron_style {
-    margin-top: 70px;
+margin-top: 70px;
 }
- 
+
 .table_style {
-    margin-top: 70px;
+margin-top: 70px;
 }
 
 h4 {
-    font-weight: bolder;
+font-weight: bolder;
 }
 
 .container_style {
-    margin-top: 80px;
-    height: 100%;
+margin-top: 80px;
+height: 100%;
 }
 
 .thumbnail {
@@ -64,18 +65,45 @@ h4 {
 
 .add-to-cart {
     margin: 0;
-    background-color: #337ab7;
-    color: #ffffff;
-    border: 1px solid cyan;
-    border-radius: 4px;
+    background-color: transparent; 
+    color: #000; 
+    border: 2px solid #000; 
+    border-radius: 15px;
     outline: none;
     padding: 6px 12px;
     margin-bottom: 0;
     font-size: 14px;
     font-weight: 400;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
 }
 
-.padding-20 {
-    padding: 20px;
+.add-to-cart:hover {
+background-color: black; 
+color: white; 
+border-color: transparent; 
 }
-         
+
+
+.padding-20 {
+padding: 20px;
+}
+
+.btn-outline-white {
+color: white;
+border: 2px solid white;
+background-color: transparent;
+transition: background-color 0.3s, color 0.3s;
+border-radius: 22px;
+padding: 10px 25px;
+font-size: 14px;
+margin-top: 15px;
+}
+
+.btn-outline-white:hover {
+color: #000; 
+background-color: white;
+border-radius: 22px;
+padding: 10px 25px;
+font-size: 14px;
+margin-top: 15px;
+}

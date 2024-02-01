@@ -39,57 +39,101 @@
                 <h1>Discover Cetoniinae Beetle</h1>
                 <p>Explore our collection of Cetoniinae beetles. We've got everything you need for your beetle hobby, all in one place.</p>
             </div>
+
             <div class="padding-20"></div>
-            <div class="row text-center">
-                <div class="col-md-3 col-sm-6">
-                    <div class="thumbnail">
-                        <img src="img/cetoniinae/cetoniidae_1.jpg" alt="Euchirus">
-                        <div class="caption">
-                            <h3>Euchirus longimanus longiman</h3>
-                            <p>Rs.36000.00</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                <div class="row text-center">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="thumbnail">
+                            <img src="img/cetoniinae/cetoniidae_1.jpg" alt="Euchirus">
+                            <div class="caption">
+                                <h3>Euchirus longimanus longiman</h3>
+                                <p>RM 299.99</p>
+                                <!-- Update the button to include a data attribute with product details -->
+                                <button class="add-to-cart" data-product-name="Euchirus longimanus longiman" data-product-price="299.99">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-3 col-sm-6 ">
-                    <div class="thumbnail">
-                        <img src="img/cetoniinae/cetoniidae_3.jpg" alt="Mecynorhina">
-                        <div class="caption">
-                            <h3>Mecynorhina ugandensis</h3>
-                            <p>Rs.32000.00</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                    <div class="col-md-3 col-sm-6 ">
+                        <div class="thumbnail">
+                            <img src="img/cetoniinae/cetoniidae_2.jpg" alt="Glycosia">
+                            <div class="caption">
+                                <h3>Glycosia luctifera</h3>
+                                <p style="margin-top: 37px;">RM 19.99</p>
+                                <button class="add-to-cart" data-product-name="Glycosia luctifera" data-product-price="19.99">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-3 col-sm-6 ">
-                    <div class="thumbnail">
-                        <img src="img/cetoniinae/cetoniidae_2.jpg" alt="Glycosia">
-                        <div class="caption">
-                            <h3>Glycosia luctifera</h3>
-                            <p>Rs.29000.00</p>
-                            <button class="add-to-cart" style="margin-top: 25px;">Add to Cart</button>
+                    <div class="col-md-3 col-sm-6 ">
+                        <div class="thumbnail">
+                            <img src="img/cetoniinae/cetoniidae_3.jpg" alt="Mecynorhina">
+                            <div class="caption">
+                                <h3>Mecynorhina ugandensis</h3>
+                                <p>RM 149.99</p>
+                                <button class="add-to-cart" data-product-name="Mecynorhina ugandensis" data-product-price="149.99">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-3 col-sm-6 ">
-                    <div class="thumbnail">
-                        <img src="img/cetoniinae/cetoniidae_4.jpg" alt="Propomacrus">
-                        <div class="caption">
-                            <h3>Propomacrus bimucronatus</h3>
-                            <p>Rs.33000.00</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                    <div class="col-md-3 col-sm-6 ">
+                        <div class="thumbnail">
+                            <img src="img/cetoniinae/cetoniidae_4.jpg" alt="Propomacrus">
+                            <div class="caption">
+                                <h3>Propomacrus bimucronatus</h3>
+                                <p>RM 99.99</p>
+                                <button class="add-to-cart" data-product-name="Propomacrus bimucronatus" data-product-price="99.99">Add to Cart</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
             </div>
             <div class="padding-20"></div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Find all add-to-cart buttons
+            var addToCartButtons = document.querySelectorAll('.add-to-cart');
+        
+            // Add click event listener to each button
+            addToCartButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    // Get product details from the button's data attributes
+                    var productName = button.getAttribute('data-product-name');
+                    var productPrice = parseFloat(button.getAttribute('data-product-price'));
+        
+                    // Get existing cart items from localStorage
+                    var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        
+                    // Check if the product is already in the cart
+                    var existingItem = cartItems.find(function (item) {
+                        return item.name === productName;
+                    });
+        
+                    // If the product is not in the cart, add it
+                    if (!existingItem) {
+                        cartItems.push({
+                            name: productName,
+                            price: productPrice,
+                            quantity: 1
+                        });
+                    } else {
+                        // If the product is already in the cart, increment the quantity
+                        existingItem.quantity++;
+                    }
+        
+                    // Update the cart in localStorage
+                    localStorage.setItem('cart', JSON.stringify(cartItems));
+        
+                    // Optionally, provide feedback to the user (e.g., a confirmation message)
+                    alert('Item added to cart!');
+                });
+            });
+        });
+        </script>
+        
     <footer>
         <div class="container">
             <center>
@@ -97,7 +141,5 @@
             </center>
         </div>
     </footer>
-
 </body>
-
 </html>

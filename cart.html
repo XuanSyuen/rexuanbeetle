@@ -48,7 +48,8 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="success.html"><button class="btn btn-primary">Confirm Order</button></a>
+                            <a href="#" onclick="confirmOrder()"><button class="btn btn-primary">Confirm Order</button></a>
+                            <a href="#" onclick="clearCart()"><button class="btn btn-warning">Clear Cart</button></a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +58,7 @@
 
         <!-- Add this within the <tbody> of your table in cart.html -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+     document.addEventListener('DOMContentLoaded', function () {
         // Get the table body
         var tbody = document.querySelector('tbody');
     
@@ -75,7 +76,33 @@
             `;
             tbody.appendChild(row);
         });
+
+        // Calculate and display total amount and quantity
+        calculateTotal(cartItems);
     });
+    
+    // Function to calculate total amount and quantity
+    function calculateTotal(cartItems) {
+        var totalAmount = 0;
+        var totalQuantity = 0;
+
+        cartItems.forEach(function (item) {
+            totalAmount += item.quantity * item.price;
+            totalQuantity += item.quantity;
+        });
+
+        // Display the total in the last row
+        var totalRow = document.createElement('tr');
+        totalRow.innerHTML = `
+            <td>Total</td>
+            <td>${totalQuantity}</td>
+            <td>${totalAmount.toFixed(2)}</td>
+            <td></td>
+        `;
+
+        // Append the total row to the table body
+        document.querySelector('tbody').appendChild(totalRow);
+    }
     
     // Function to remove an item from the cart
     function removeItem(productName) {
@@ -96,6 +123,22 @@
             // Refresh the page to reflect the changes
             location.reload();
         }
+    }
+
+    // Function to clear all items from the cart
+    function clearCart() {
+        // Clear the cart in localStorage
+        localStorage.removeItem('cart');
+        // Refresh the page to reflect the changes
+        location.reload();
+    }
+
+    // Function to clear the cart and redirect to success page
+    function confirmOrder() {
+        // Clear the cart in localStorage
+        localStorage.removeItem('cart');
+        // Redirect to success.html
+        window.location.href = 'success.html';
     }
     </script>    
 

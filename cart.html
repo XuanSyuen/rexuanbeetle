@@ -2,6 +2,41 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style>
+            /* Add your custom styles here */
+            .quantity-container {
+                text-align: center;
+            }
+
+            .quantity-button {
+                border: 2px solid black !important;
+                background-color: white;
+                color: black;
+                margin: 0 5px;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+
+            .quantity-button:hover {
+                background-color: black;
+                color: white;
+            }
+
+            .quantity-button:active {
+                background-color: black; /* Change to desired active color for add button */
+                color: white;
+            }
+
+            .quantity-button.btn-success:active {
+                background-color: black; /* Change to desired active color for minus button */
+                color: white;
+            }
+
+            .quantity-button.btn-danger:active {
+                background-color: black; /* Change to desired active color for minus button */
+                color: white;
+            }
+        </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <title>Cart</title>
@@ -42,8 +77,8 @@
                                 <tbody>
                                     <tr>
                                         <th>Item Name</th>
-                                        <th>Quantity</th>
                                         <th>Price (RM)</th>
+                                        <th>Quantity</th>
                                         <th></th>
                                     </tr>
                                 </tbody>
@@ -59,95 +94,113 @@
         <!-- Add this within the <tbody> of your table in cart.html -->
 <script>
      document.addEventListener('DOMContentLoaded', function () {
-        // Get the table body
-        var tbody = document.querySelector('tbody');
-    
-        // Get cart items from localStorage
-        var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    
-        // Iterate through cart items and append rows to the table
-        cartItems.forEach(function (item) {
-            var row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.name}</td>
-                <td>${item.quantity}</td>
-                <td>${item.price.toFixed(2)}</td>
-                <td><button class="btn btn-danger" onclick="removeItem('${item.name}')">Remove</button></td>
-            `;
-            tbody.appendChild(row);
-        });
+                var tbody = document.querySelector('tbody');
+                var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // Calculate and display total amount and quantity
-        calculateTotal(cartItems);
-    });
-    
-    // Function to calculate total amount and quantity
-    function calculateTotal(cartItems) {
-        var totalAmount = 0;
-        var totalQuantity = 0;
+                cartItems.forEach(function (item) {
+                    var row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.name}</td>
+                        <td>${item.price.toFixed(2)}</td>
+                        <td class="quantity-container">
+                            <button class="quantity-button btn btn-sm btn-danger" onclick="updateQuantity('${item.name}', -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-button btn btn-sm btn-success" onclick="updateQuantity('${item.name}', 1)">+</button>
+                        </td>
+                        <td><button class="btn btn-danger" onclick="removeItem('${item.name}')">Remove</button></td>
+                    `;
+                    tbody.appendChild(row);
+                });
 
-        cartItems.forEach(function (item) {
-            totalAmount += item.quantity * item.price;
-            totalQuantity += item.quantity;
-        });
+                calculateTotal(cartItems);
+            });
 
-        // Display the total in the last row
-        var totalRow = document.createElement('tr');
-        totalRow.innerHTML = `
-            <td>Total</td>
-            <td>${totalQuantity}</td>
-            <td>${totalAmount.toFixed(2)}</td>
-            <td></td>
-        `;
+            function updateQuantity(productName, change) {
+                var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+                var item = cartItems.find(function (item) {
+                    return item.name === productName;
+                });
 
-        // Append the total row to the table body
-        document.querySelector('tbody').appendChild(totalRow);
-    }
+                if (item) {
+                    item.quantity += change;
+                    if (item.quantity < 1) {
+                        item.quantity = 1; // Ensure quantity doesn't go below 1
+                    }
+                    localStorage.setItem('cart', JSON.stringify(cartItems));
+                    calculateTotal(cartItems);
+                    // Refresh the page to reflect the changes
+                    location.reload();
+                }
+            }
     
-    // Function to remove an item from the cart
-    function removeItem(productName) {
-        // Get cart items from localStorage
-        var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    
-        // Find the index of the item to remove
-        var index = cartItems.findIndex(function (item) {
-            return item.name === productName;
-        });
-    
-        // Remove the item if found
-        if (index !== -1) {
-            cartItems.splice(index, 1);
-            // Update the cart in localStorage
-            localStorage.setItem('cart', JSON.stringify(cartItems));
-    
-            // Refresh the page to reflect the changes
-            location.reload();
-        }
-    }
+            // Function to calculate total amount and quantity
+            function calculateTotal(cartItems) {
+                var totalAmount = 0;
+                var totalQuantity = 0;
 
-    // Function to clear all items from the cart
-    function clearCart() {
-        // Clear the cart in localStorage
-        localStorage.removeItem('cart');
-        // Refresh the page to reflect the changes
-        location.reload();
-    }
+                cartItems.forEach(function (item) {
+                    totalAmount += item.quantity * item.price;
+                    totalQuantity += item.quantity;
+                });
 
-    // Function to clear the cart and redirect to success page
-    function confirmOrder() {
-        // Clear the cart in localStorage
-        localStorage.removeItem('cart');
-        // Redirect to success.html
-        window.location.href = 'success.html';
-    }
+                // Display the total in the last row
+                var totalRow = document.createElement('tr');
+                totalRow.innerHTML = `
+                    <td>Total</td>
+                    <td>${totalAmount.toFixed(2)}</td>
+                    <td>${totalQuantity}</td>
+                    <td></td>
+                `;
+
+                // Append the total row to the table body
+                document.querySelector('tbody').appendChild(totalRow);
+            }
+            
+            // Function to remove an item from the cart
+            function removeItem(productName) {
+                // Get cart items from localStorage
+                var cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            
+                // Find the index of the item to remove
+                var index = cartItems.findIndex(function (item) {
+                    return item.name === productName;
+                });
+            
+                // Remove the item if found
+                if (index !== -1) {
+                    cartItems.splice(index, 1);
+                    // Update the cart in localStorage
+                    localStorage.setItem('cart', JSON.stringify(cartItems));
+            
+                    // Refresh the page to reflect the changes
+                    location.reload();
+                }
+            }
+
+            // Function to clear all items from the cart
+            function clearCart() {
+                // Clear the cart in localStorage
+                localStorage.removeItem('cart');
+                // Refresh the page to reflect the changes
+                location.reload();
+            }
+
+            // Function to clear the cart and redirect to success page
+            function confirmOrder() {
+                // Clear the cart in localStorage
+                localStorage.removeItem('cart');
+                // Redirect to success.html
+                window.location.href = 'success.html';
+            }
     </script>    
 
         <footer>
             <div class="container">
                 <center>
-                    Copyright © RexuanBeetle. All Rights Reserved and Contact Us: +60 173381245
+                    Copyright © RexuanBeetle. All Rights Reserved and Contact Us: +60173381245
                 </center>
             </div>
         </footer>
     </body>
 </html>
+
